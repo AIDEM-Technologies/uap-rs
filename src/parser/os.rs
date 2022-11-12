@@ -5,19 +5,21 @@ pub enum Error {
     Regex(regex::Error),
 }
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 #[allow(clippy::struct_excessive_bools)]
 pub struct Matcher {
-    regex: regex::Regex,
-    os_replacement: Option<String>,
-    os_v1_replacement: Option<String>,
-    os_v2_replacement: Option<String>,
-    os_v3_replacement: Option<String>,
-    os_replacement_has_group: bool,
-    os_v1_replacement_has_group: bool,
-    os_v2_replacement_has_group: bool,
-    os_v3_replacement_has_group: bool,
+    #[serde(with = "serde_regex")]
+    pub regex: regex::Regex,
+    pub os_replacement: Option<String>,
+    pub os_v1_replacement: Option<String>,
+    pub os_v2_replacement: Option<String>,
+    pub os_v3_replacement: Option<String>,
+    pub os_replacement_has_group: bool,
+    pub os_v1_replacement_has_group: bool,
+    pub os_v2_replacement_has_group: bool,
+    pub os_v3_replacement_has_group: bool,
 }
+
 
 impl<'a> SubParser<'a> for Matcher {
     type Item = OS<'a>;

@@ -31,11 +31,11 @@ pub enum Error {
 
 /// Handles the actual parsing of a user agent string by delegating to
 /// the respective `SubParser`
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct UserAgentParser {
-    device_matchers: Vec<device::Matcher>,
-    os_matchers: Vec<os::Matcher>,
-    user_agent_matchers: Vec<user_agent::Matcher>,
+    pub device_matchers: Vec<device::Matcher>,
+    pub os_matchers: Vec<os::Matcher>,
+    pub user_agent_matchers: Vec<user_agent::Matcher>,
 }
 
 impl Parser for UserAgentParser {

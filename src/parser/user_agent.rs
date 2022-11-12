@@ -5,14 +5,15 @@ pub enum Error {
     Regex(regex::Error),
 }
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct Matcher {
-    regex: regex::Regex,
-    family_replacement_has_group: bool,
-    family_replacement: Option<String>,
-    v1_replacement: Option<String>,
-    v2_replacement: Option<String>,
-    v3_replacement: Option<String>,
+    #[serde(with = "serde_regex")]
+    pub regex: regex::Regex,
+    pub family_replacement_has_group: bool,
+    pub family_replacement: Option<String>,
+    pub v1_replacement: Option<String>,
+    pub v2_replacement: Option<String>,
+    pub v3_replacement: Option<String>,
 }
 
 impl<'a> SubParser<'a> for Matcher {
